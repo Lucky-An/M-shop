@@ -1,24 +1,218 @@
-# m-shop
+# m-shop说明书
 
-## Project setup
-```
-yarn install
-```
+1. 配置移动端适配lib-flexible`自动适应屏幕大小`px2rem-loader  `解决了px转化rem麻烦的问题` 
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+   ```shell
+   npm install px2rem-loader  lib-flexible --save 
+   ```
 
-### Compiles and minifies for production
-```
-yarn build
-```
+   `vue.config.js`
 
-### Lints and fixes files
-```
-yarn lint
-```
+   ```javascript
+   const px2rem = require('postcss-px2rem')
+   
+   const postcss = px2rem({
+     remUnit: 75   //remUnit = 设计稿/等分数10， 网易严选首页750宽，正好相当于是设计稿宽度，所以值为750/10 = 75
+   })
+   
+   module.exports = {
+     css: {
+       loaderOptions: {
+         postcss: {
+           plugins: [
+             postcss
+           ]
+         }
+       }
+     }
+   }
+   ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+   `main.js`
+
+   ```javascript
+   import 'lib-flexible/flexible'
+   ```
+
+2. 配置less
+
+   ```shell
+   npm install less less-loader --save-dev
+   ```
+
+3. 配置vue-router
+
+   `npm install vue-router`
+
+4. 配置Vant
+
+   `npm i vant -S`
+
+   实现按需引入
+
+   `tabBar`
+
+5. 开始干首页
+
+   1. 引入`npm install better-scroll --save`
+
+   2. 在需要使用better-scroll的界面
+
+      **需要给ul的父元素高度和overflow：hidden**
+
+      ```html
+          <div class="wrapper" ref="wrapper">
+            <ul class="content">
+              <li>推荐</li>
+              <li>推荐</li>
+            </ul>
+            <!-- 这里可以放一些其它的 DOM，但不会影响滚动 -->
+          </div>
+      ```
+
+      ```javascript
+        mounted() {
+          this.initScroll();
+        },
+        methods: {
+          initScroll() {
+            this.$nextTick(() => {
+              let navScroll = new BScroll(this.$refs.wrapper, {
+                click: true,
+                scrollX: true
+              });
+            });
+          }
+        }
+      ```
+
+      ```less
+      .wrapper {
+        overflow: hidden;
+        display: flex;
+        width: 80%;
+        .content {
+          white-space: nowrap;
+          display: flex;
+          li {
+            display: inline-block;
+            margin: 0 20px;
+          }
+        }
+      }
+      ```
+
+   3. 关闭eslint检查
+
+      `vue.config.js`
+
+      ```javascript
+      lintOnSave: false,
+      ```
+
+   4. 引入弹出层
+
+   5. 引入Swipe, SwipeItem
+
+   6. 引入倒计时组件CountDown 
+
+   7. 配axios
+
+      1. 引入axios
+
+      2. 新建axios文件夹
+
+      3. `http.js`
+
+         ```javascript
+         import axios from 'axios'
+         
+         const http = axios.create({
+             baseURL: "/api",
+             timeout: 2000
+         })
+         
+         // * 配置请求拦截器
+         http.interceptors.request.use((config) => {
+             return config
+         })
+         // * 响应拦截器
+         http.interceptors.response.use(
+             value => {
+                 return value
+             },
+             err => {
+                 return Promise.reject(err.message)
+             }
+         )
+         
+         
+         export default http
+         ```
+
+      4. `index.js`
+
+         ```javascript
+         import http from "./http"
+         
+         
+         // http 请求针对基础路径为/api的请求
+         export const getIndexData = () => {
+             return http.get("/indexdata")
+         }
+         getIndexData().then(
+             value => {
+                 console.log(value)
+             }
+         )
+         ```
+
+      5. 配置跨域
+
+         `vue.config.js`
+
+         ```javascript
+         const px2rem = require('postcss-px2rem')
+         
+         const postcss = px2rem({
+             remUnit: 75 //remUnit = 设计稿/等分数10， 网易严选首页750宽，正好相当于是设计稿宽度，所以值为750/10 = 75
+         })
+         
+         module.exports = {
+             // 关闭eslint校验
+             lintOnSave: false,
+             // 移动端适配
+             css: {
+                 loaderOptions: {
+                     postcss: {
+                         plugins: [
+                             postcss
+                         ]
+                     }
+                 }
+             },
+             devServer: {
+                 open: true,
+                 host: "localhost",
+                 port: 8080,
+                 https: false,
+                 // ! 上边的配置需要对应项目的配置
+                 proxy: {
+                     '/api': { //拿到所有/api的请求   跨4000的域名
+                         target: 'http://localhost:4000',
+                         ws: true,
+                         changeOrigin: true, //! 允许跨域
+                         pathRewrite: {
+                             "^/api": "" //因为真实的接口，没有/api这一层  所以发请求时要去掉
+                         }
+                     },
+                     '/foo': {
+                         target: '<other_url>'
+                     }
+                 }
+             }
+         }
+         ```
+
+         
+
