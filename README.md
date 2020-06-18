@@ -58,7 +58,7 @@
 
    2. 在需要使用better-scroll的界面
 
-      **需要给ul的父元素高度和overflow：hidden**
+      **需要给ul的父元素高度和overflow：hidden,给ul和ul的父元素都需要给display：flex，ul需要white-space: nowrap，li元素需要inline-block**
 
       ```html
           <div class="wrapper" ref="wrapper">
@@ -214,5 +214,74 @@
          }
          ```
 
+      6. 引入vuex管理数据
+      
+         `npm install vuex --save`
+      
+         1. 新建`store`文件夹
+         2. 新建`index.js`文件
+         3. 新建`module`文件夹，并在其中新建`recommend.js`
+         4. 在`main.js`中引入`store`并挂载
+      
+         `index.js`
+      
+         ```javascript
+         import Vue from 'vue'
+         import Vuex from 'vuex'
+         import recommend from './module/recommend'
          
+         Vue.use(Vuex);
+         
+         export default new Vuex.Store({
+             modules: {
+                 recommend
+             }
+         })
+         ```
+      
+         `recommend.js`
+      
+         ```javascript
+         import {
+             getIndexData
+         } from '../../axios/index'
+         const state = {
+             homeData: {}
+         }
+         
+         const mutations = {
+             updatedHomeData(state, data) {
+                 state.homeData = data
+             }
+         }
+         
+         const actions = {
+             async getHomeData({
+                 commit
+             }) {
+                 const result = await getIndexData()
+                 console.log(result)
+                 if (result.status === 200) {
+                     commit("updatedHomeData", result.data)
+                 }
+             }
+         }
+         
+         const getters = {}
+         
+         export default {
+             state,
+             mutations,
+             actions,
+             getters
+         }
+         ```
+      
+      7. 用到了mapGetters
+      
+      8. 开始搞分类
+      
+      9. 分类两个滑屏
+      
+      10. 抽离左右组件
 

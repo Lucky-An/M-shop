@@ -12,32 +12,14 @@
     <!-- 滑屏导航 -->
     <div class="scrollView">
       <div class="wrapper" ref="wrapper">
-        <ul class="content">
-          <li class="actived">推荐</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
-          <li>居家生活</li>
+        <ul class="content" v-if="kingKongModule">
+          <li :class="{actived:isActive===0}" @click="changeActiveIndex(0)">推荐</li>
+          <li
+            v-for="(item,index) in kingKongModule.kingKongList"
+            :class="{actived:isActive===index+1}"
+            @click="changeActiveIndex(index+1)"
+            :key="index"
+          >{{item.text}}</li>
         </ul>
         <!-- 这里可以放一些其它的 DOM，但不会影响滚动 -->
       </div>
@@ -102,22 +84,33 @@ import BScroll from "better-scroll";
 import RecommendCom from "../../components/recommendComponent";
 import NavOther from "../../components/navOther";
 import { getIndexData } from "../../axios/index";
+import { mapGetters } from "vuex";
 export default {
   name: "home",
   data() {
     return {
       allCount: 33487,
       NavPopUpShow: false,
-      isRecommend: true
+      isRecommend: true,
+      isActive: 0
     };
+  },
+  computed: {
+    ...mapGetters(["kingKongModule"])
   },
   components: {
     RecommendCom,
     NavOther
   },
-  mounted() {
+  beforeMount() {
     this.initScroll();
   },
+  mounted() {
+    this.$store.dispatch("getHomeData");
+
+    console.log(this.kingKongModule);
+  },
+
   methods: {
     // 滑屏
     initScroll() {
@@ -137,6 +130,16 @@ export default {
     showNavPopUp() {
       console.log("弹出层出现了");
       this.NavPopUpShow = true;
+    },
+    // 改变nav选中index
+    changeActiveIndex(index) {
+      this.isActive = index;
+      // 修改子组件显示状态
+      if (index === 0) {
+        this.isRecommend = true;
+      } else {
+        this.isRecommend = false;
+      }
     }
   }
 };

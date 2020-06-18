@@ -5,8 +5,8 @@ import http from "./http"
 export const getIndexData = () => {
     return http.get("/indexdata")
 }
-getIndexData().then(
-    value => {
-        console.log(value)
-    }
-)
+// getIndexData().then(
+//     value => {
+//         console.log(value)
+//     }
+// )

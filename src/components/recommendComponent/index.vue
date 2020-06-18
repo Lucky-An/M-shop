@@ -2,60 +2,16 @@
   <div class="recommendContainer">
     <!-- 三个口号 -->
     <ul class="g-grow">
-      <li class="item">
+      <li class="item" v-for="(item,index) in policyDescList" :key="index">
         <van-icon name="gold-coin-o" size="14" color="#dd1a21" />
-        <span>网易自营品牌</span>
-      </li>
-      <li class="item">
-        <van-icon name="gold-coin-o" size="14" color="#dd1a21" />
-        <span>30天无忧退货</span>
-      </li>
-      <li class="item">
-        <van-icon name="gold-coin-o" size="14" color="#dd1a21" />
-        <span>48小时快速退款</span>
+        <span>{{item.desc}}</span>
       </li>
     </ul>
     <!-- 10类货种 -->
     <ul class="productList">
-      <li class="productItem">
-        <img src="https://yanxuan.nosdn.127.net/c6fd8835a6400b7da7a016ad85506b69.png" alt />
-        <div class="text">新品首发</div>
-      </li>
-      <li class="productItem">
-        <img src="https://yanxuan.nosdn.127.net/c6fd8835a6400b7da7a016ad85506b69.png" alt />
-        <div class="text">新品首发</div>
-      </li>
-      <li class="productItem">
-        <img src="https://yanxuan.nosdn.127.net/c6fd8835a6400b7da7a016ad85506b69.png" alt />
-        <div class="text">新品首发</div>
-      </li>
-      <li class="productItem">
-        <img src="https://yanxuan.nosdn.127.net/c6fd8835a6400b7da7a016ad85506b69.png" alt />
-        <div class="text">新品首发</div>
-      </li>
-      <li class="productItem">
-        <img src="https://yanxuan.nosdn.127.net/c6fd8835a6400b7da7a016ad85506b69.png" alt />
-        <div class="text">新品首发</div>
-      </li>
-      <li class="productItem">
-        <img src="https://yanxuan.nosdn.127.net/c6fd8835a6400b7da7a016ad85506b69.png" alt />
-        <div class="text">新品首发</div>
-      </li>
-      <li class="productItem">
-        <img src="https://yanxuan.nosdn.127.net/c6fd8835a6400b7da7a016ad85506b69.png" alt />
-        <div class="text">新品首发</div>
-      </li>
-      <li class="productItem">
-        <img src="https://yanxuan.nosdn.127.net/c6fd8835a6400b7da7a016ad85506b69.png" alt />
-        <div class="text">新品首发</div>
-      </li>
-      <li class="productItem">
-        <img src="https://yanxuan.nosdn.127.net/c6fd8835a6400b7da7a016ad85506b69.png" alt />
-        <div class="text">新品首发</div>
-      </li>
-      <li class="productItem">
-        <img src="https://yanxuan.nosdn.127.net/c6fd8835a6400b7da7a016ad85506b69.png" alt />
-        <div class="text">新品首发</div>
+      <li class="productItem" v-for="(item,index) in kingKongModule.kingKongList" :key="index">
+        <img :src="item.picUrl" alt />
+        <div class="text">{{item.text}}</div>
       </li>
     </ul>
     <!-- 新人首单 -->
@@ -92,16 +48,13 @@
         </div>
         <div class="right">
           <div class="top">
-            <div class="title">福利社</div>
-            <div class="subTitle">今日特价</div>
-            <img
-              src="https://yanxuan-item.nosdn.127.net/ef494df1dc727c0e5cc8ebafb1de5d38.png?quality=75&type=webp&imageView&thumbnail=200x200"
-              alt
-            />
+            <div class="title">{{indexActivityModule[0].title}}</div>
+            <div class="subTitle">{{indexActivityModule[0].subTitle}}</div>
+            <img :src="indexActivityModule[0].showPicUrl" alt="新人福利" />
           </div>
           <div class="bottom">
-            <div class="title">新人拼团</div>
-            <div class="tag">一元起包邮</div>
+            <div class="title">{{indexActivityModule[1].title}}</div>
+            <div class="tag">{{indexActivityModule[1].tag}}</div>
             <img
               src="https://yanxuan-item.nosdn.127.net/08ed8b0e068a3ff2a0aae8c427db1858.png?quality=75&type=webp&imageView&thumbnail=200x200"
               alt
@@ -116,78 +69,20 @@
       <div class="content">
         <div class="twoList clearfix">
           <div class="left">
-            <div class="text">热销榜</div>
+            <div class="text">{{categoryBeforeTwoList[0].categoryName}}</div>
             <div class="line"></div>
-            <img
-              src="https://yanxuan-item.nosdn.127.net/da0321f5813855f287c274e1d8a7cf9f.png?quality=75&type=webp&imageView&thumbnail=200x200"
-              alt
-            />
+            <img :src="categoryBeforeTwoList[0].showPicUrl" alt />
           </div>
           <div class="right">
-            <div class="text">好评榜</div>
+            <div class="text">{{categoryBeforeTwoList[1].categoryName}}</div>
             <div class="line"></div>
-            <img
-              src="https://yanxuan-item.nosdn.127.net/da0321f5813855f287c274e1d8a7cf9f.png?quality=75&type=webp&imageView&thumbnail=200x200"
-              alt
-            />
+            <img :src="categoryBeforeTwoList[1].showPicUrl" alt />
           </div>
         </div>
         <div class="tenList">
-          <div class="tenListItem">
-            <div class="text">居家生活榜</div>
-            <img
-              src="https://yanxuan-item.nosdn.127.net/644a27b8e168b8fe8e43ccaad934b24e.png?quality=75&type=webp&imageView&thumbnail=200x200"
-              alt
-            />
-          </div>
-          <div class="tenListItem">
-            <div class="text">居家生活榜</div>
-            <img
-              src="https://yanxuan-item.nosdn.127.net/644a27b8e168b8fe8e43ccaad934b24e.png?quality=75&type=webp&imageView&thumbnail=200x200"
-              alt
-            />
-          </div>
-          <div class="tenListItem">
-            <div class="text">居家生活榜</div>
-            <img
-              src="https://yanxuan-item.nosdn.127.net/644a27b8e168b8fe8e43ccaad934b24e.png?quality=75&type=webp&imageView&thumbnail=200x200"
-              alt
-            />
-          </div>
-          <div class="tenListItem">
-            <div class="text">居家生活榜</div>
-            <img
-              src="https://yanxuan-item.nosdn.127.net/644a27b8e168b8fe8e43ccaad934b24e.png?quality=75&type=webp&imageView&thumbnail=200x200"
-              alt
-            />
-          </div>
-          <div class="tenListItem">
-            <div class="text">居家生活榜</div>
-            <img
-              src="https://yanxuan-item.nosdn.127.net/644a27b8e168b8fe8e43ccaad934b24e.png?quality=75&type=webp&imageView&thumbnail=200x200"
-              alt
-            />
-          </div>
-          <div class="tenListItem">
-            <div class="text">居家生活榜</div>
-            <img
-              src="https://yanxuan-item.nosdn.127.net/644a27b8e168b8fe8e43ccaad934b24e.png?quality=75&type=webp&imageView&thumbnail=200x200"
-              alt
-            />
-          </div>
-          <div class="tenListItem">
-            <div class="text">居家生活榜</div>
-            <img
-              src="https://yanxuan-item.nosdn.127.net/644a27b8e168b8fe8e43ccaad934b24e.png?quality=75&type=webp&imageView&thumbnail=200x200"
-              alt
-            />
-          </div>
-          <div class="tenListItem">
-            <div class="text">居家生活榜</div>
-            <img
-              src="https://yanxuan-item.nosdn.127.net/644a27b8e168b8fe8e43ccaad934b24e.png?quality=75&type=webp&imageView&thumbnail=200x200"
-              alt
-            />
+          <div class="tenListItem" v-for="(item,index) in categoryAfterEightList" :key="index">
+            <div class="text">{{item.categoryName}}</div>
+            <img :src="item.showPicUrl" alt />
           </div>
         </div>
       </div>
@@ -329,12 +224,23 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { mapGetters } from "vuex";
 export default {
   name: "recommendCom",
   data() {
     return {
       time: 30 * 60 * 60 * 1000
     };
+  },
+  computed: {
+    ...mapGetters([
+      "kingKongModule",
+      "policyDescList",
+      "indexActivityModule",
+      "categoryHotSellModule",
+      "categoryBeforeTwoList",
+      "categoryAfterEightList"
+    ])
   },
   components: {}
 };
