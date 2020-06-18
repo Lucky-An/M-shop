@@ -103,12 +103,18 @@ export default {
     NavOther
   },
   beforeMount() {
-    this.initScroll();
+    // this.initScroll();
+  },
+  watch: {
+    kingKongModule: {
+      handler: function() {
+        this.initScroll();
+      },
+      deep: true
+    }
   },
   mounted() {
     this.$store.dispatch("getHomeData");
-
-    console.log(this.kingKongModule);
   },
 
   methods: {

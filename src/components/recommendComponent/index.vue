@@ -8,7 +8,7 @@
       </li>
     </ul>
     <!-- 10类货种 -->
-    <ul class="productList">
+    <ul class="productList" v-if="kingKongModule">
       <li class="productItem" v-for="(item,index) in kingKongModule.kingKongList" :key="index">
         <img :src="item.picUrl" alt />
         <div class="text">{{item.text}}</div>
@@ -46,7 +46,7 @@
             <img src="http://yanxuan.nosdn.127.net/352b0ea9b2d058094956efde167ef852.png" alt />
           </div>
         </div>
-        <div class="right">
+        <div class="right" v-if="indexActivityModule">
           <div class="top">
             <div class="title">{{indexActivityModule[0].title}}</div>
             <div class="subTitle">{{indexActivityModule[0].subTitle}}</div>
@@ -67,7 +67,7 @@
     <div class="m-categoryHotSellModule">
       <div class="title">类目热销榜</div>
       <div class="content">
-        <div class="twoList clearfix">
+        <div class="twoList clearfix" v-if="categoryBeforeTwoList">
           <div class="left">
             <div class="text">{{categoryBeforeTwoList[0].categoryName}}</div>
             <div class="line"></div>

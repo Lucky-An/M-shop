@@ -284,4 +284,29 @@
       9. 分类两个滑屏
       
       10. 抽离左右组件
+      
+      11. 子组件撑不开better-scorll高度没有滑动效果，
+      
+          解决办法：子元素最后一个给margin-bottom撑开父元素
+      
+          &:last-child{margin-bottom:300px}
+      
+      12. 切换菜单事件绑定到父元素上子元素借助data-id  利用事件委派切换选中状态
+      
+      13. flex多列布局space-between 最后如果元素个数不够可能会导致布局中间空白
+      
+          解决方案
+      
+          给父元素添加如下代码
+      
+          ```less
+          &:last-child::after {
+                content: "";
+                height: 1px;
+                width: 150px;
+                display: block;
+              }
+          ```
+      
+      14. 监视器监视$route 即使给了`immediate: true`  页面首次跳转到达具有监视器的界面也不会触发事件
 

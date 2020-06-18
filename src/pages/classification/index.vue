@@ -10,10 +10,10 @@
     <!-- 主要内容区域 -->
     <div class="main">
       <div class="left">
-        <LeftScroll></LeftScroll>
+        <LeftScroll :navList="navList"></LeftScroll>
       </div>
       <div class="right">
-        <RightScroll></RightScroll>
+        <RightScroll :productList="productList"></RightScroll>
       </div>
     </div>
   </div>
@@ -22,18 +22,50 @@
 <script type="text/ecmascript-6">
 import LeftScroll from "./LeftScroll";
 import RightScroll from "./RightScroll";
+import { getClassificationData } from "../../axios/index";
 export default {
   name: "classification",
   data() {
     return {
-      total: 33419
+      total: 33419,
+      productList: []
     };
+  },
+  computed: {
+    navList: function() {
+      let result = [];
+      if (this.productList.length) {
+        this.productList.forEach(item => {
+          let name = item.name;
+          let id = item.id;
+          let obj = { name, id };
+          result.push(obj);
+        });
+      }
+      return result;
+    }
   },
   components: { LeftScroll, RightScroll },
   mounted() {
-    // this.initScroll();
+    getClassificationData().then(value => {
+      this.productList = value.data;
+    });
   },
-  methods: {}
+  methods: {
+    // 请求数据
+    // setClassification() {
+    //   let result = {};
+    //   let getInitData = async () => {
+    //     result = await getClassificationData();
+    //     console.log("里面的");
+    //     console.log(result);
+    //   };
+    //   getInitData();
+    //   console.log("外边的");
+    //   console.log(result);
+    //   return result;
+    // }
+  }
 };
 </script>
 
@@ -67,23 +99,6 @@ export default {
     height: calc(100vh - 200px);
     padding: 40px 0;
     box-sizing: border-box;
-    // .wrapper {
-    //   overflow: hidden;
-    //   height: calc(100vh - 280px);
-    //   display: flex;
-    //   flex-direction: column;
-    //   .content {
-    //     display: flex;
-    //     flex-direction: column;
-    //     li {
-    //       width: 100%;
-    //       height: 60px;
-    //       display: inline-block;
-    //       text-align: center;
-    //       // position: relative;
-    //     }
-    //   }
-    // }
   }
   .right {
     flex: 1;
@@ -91,24 +106,6 @@ export default {
     padding: 40px 0;
     border-left: 2px solid rgb(237, 237, 237);
     box-sizing: border-box;
-    // .wrapper {
-    //   overflow: hidden;
-    //   height: calc(100vh - 280px);
-    //   display: flex;
-    //   flex-direction: column;
-    //   .content {
-    //     display: flex;
-    //     flex-direction: column;
-    //     li {
-    //       width: 100%;
-    //       height: 60px;
-    //       display: inline-block;
-    //       text-align: center;
-    //       // position: relative;
-    //     }
-    //   }
-    // }
   }
-  // background: red;
 }
 </style>

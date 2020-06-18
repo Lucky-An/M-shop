@@ -1,34 +1,14 @@
 <template>
   <div>
     <div class="wrapper" ref="leftWrapper">
-      <ul class="content">
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
+      <!-- <ul class="content" v-if="navList.length"> -->
+      <ul class="content" @click="changeActivedId">
+        <li
+          v-for="item in navList"
+          :class="{actived:item.id===activeId}"
+          :data-id="item.id"
+          :key="item.id"
+        >{{item.name}}</li>
       </ul>
       <!-- 这里可以放一些其它的 DOM，但不会影响滚动 -->
     </div>
@@ -40,12 +20,22 @@ import BScroll from "better-scroll";
 export default {
   name: "LeftScroll",
   data() {
-    return {};
+    return {
+      activeId: 0
+    };
   },
   components: {},
-  mounted() {
-    this.initScroll();
+  watch: {
+    navList: {
+      handler: function() {
+        this.initScroll();
+        this.activeId = this.navList[0].id;
+      },
+      deep: true
+    }
   },
+  props: ["navList"],
+  mounted() {},
   methods: {
     // 滑屏
     initScroll() {
@@ -55,6 +45,16 @@ export default {
           scrollY: true
         });
       });
+    },
+    // 点击列表数据触发
+    changeActivedId(event) {
+      if (event.target.dataset.id) {
+        this.activeId = event.target.dataset.id * 1;
+        this.$router.replace({
+          path: "/classification",
+          query: { id: this.activeId }
+        });
+      }
     }
   }
 };
@@ -71,11 +71,30 @@ export default {
     flex-direction: column;
     li {
       width: 100%;
-      height: 60px;
+      height: 50px;
+      line-height: 50px;
+      font-size: 28px;
       display: inline-block;
       text-align: center;
-      // position: relative;
+      position: relative;
+      margin: 30px 0;
+      &:last-child {
+        margin-bottom: 300px;
+      }
     }
   }
+}
+.actived {
+  color: #ab2b2b;
+}
+.actived::after {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 100%;
+  background: #ab2b2b;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 </style>

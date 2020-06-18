@@ -5,6 +5,10 @@ import http from "./http"
 export const getIndexData = () => {
     return http.get("/indexdata")
 }
+
+export const getClassificationData = () => {
+    return http.get("/classification")
+}
 // getIndexData().then(
 //     value => {
 //         console.log(value)
