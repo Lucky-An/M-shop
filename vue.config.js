@@ -32,8 +32,13 @@ module.exports = {
                     "^/api": "" //因为真实的接口，没有/api这一层  所以发请求时要去掉
                 }
             },
-            '/foo': {
-                target: '<other_url>'
+            '/m': {
+                target: 'http://m.you.163.com',
+                ws: true,
+                changeOrigin: true, //! 允许跨域
+                pathRewrite: {
+                    "^/m": "" //因为真实的接口，没有/m这一层  所以发请求时要去掉
+                }
             }
         }
     }

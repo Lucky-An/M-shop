@@ -309,4 +309,59 @@
           ```
       
       14. 监视器监视$route 即使给了`immediate: true`  页面首次跳转到达具有监视器的界面也不会触发事件
+      
+      15. 完成值得买页面瀑布流
+      
+          以两列布局来讲瀑布流基本布局为
+      
+          整体flex布局   水平排列为两列   每列内部flex布局垂直排布   数据奇数下标放到第一列偶数下标放到第二列。
+      
+      16. 接下来请求网易真实接口，配置真实接口跨域
+      
+          `vue.config.js`
+      
+          ```javascript
+          '/m': {
+                          target: 'http://m.you.163.com',
+                          ws: true,
+                          changeOrigin: true, //! 允许跨域
+                          pathRewrite: {
+                              "^/m": "" //因为真实的接口，没有/m这一层  所以发请求时要去掉
+                          }
+                      }
+          ```
+      
+      17. 封装网易真实接口axios请求
+      
+          在axios文件夹新建`Majax.js`
+      
+          ```javascript
+          import axios from 'axios'
+          
+          const Majax = axios.create({
+              baseURL: "/m",
+              timeout: 2000
+          })
+          
+          // * 配置请求拦截器
+          Majax.interceptors.request.use((config) => {
+              return config
+          })
+          // * 响应拦截器
+          Majax.interceptors.response.use(
+              value => {
+                  return value
+              },
+              err => {
+                  return Promise.reject(err.message)
+              }
+          )
+          
+          
+          export default Majax
+          ```
+      
+          在axios文件夹中的`index.js`中引入`Majax`
+      
+      18. 
 
