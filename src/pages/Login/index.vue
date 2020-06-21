@@ -1,10 +1,10 @@
 <template>
   <div class="login">
     <header class="header">
-      <van-icon name="wap-home-o" size="26" />
+      <van-icon name="wap-home-o" size="26" @click="toHome" />
       <span>网易严选</span>
-      <van-icon name="search" size="26" class="search" />
-      <van-icon name="shopping-cart-o" size="26" />
+      <van-icon name="search" size="26" class="search" @click="toSearch" />
+      <van-icon name="shopping-cart-o" size="26" @click="toShopCart" />
     </header>
     <div v-if="!loginMethod">
       <div class="logoWrap">
@@ -89,6 +89,15 @@ export default {
         // let phone = localStorage.getItem("phone");
         // console.log(phone);
       }
+    },
+    toHome() {
+      this.$router.replace("/home");
+    },
+    toSearch() {
+      this.$router.replace("/search");
+    },
+    toShopCart() {
+      this.$router.replace({ name: "ShopCart" });
     }
   }
 };

@@ -105,13 +105,27 @@
         </div>反馈意见
       </li>
     </ul>
-    <div class="logout">退出登录</div>
+    <div class="logout" @click="logout">退出登录</div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 export default {
-  name: "Personal"
+  name: "Personal",
+  beforeCreate() {
+    let phone = localStorage.getItem("phone");
+    console.log("---------------------------------------");
+    console.log(phone);
+    if (!phone) {
+      this.$router.replace("/login");
+    }
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("phone");
+      this.$router.replace("/login");
+    }
+  }
 };
 </script>
 
