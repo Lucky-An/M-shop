@@ -3,6 +3,8 @@ import ShopCart from '../pages/shopCart'
 import Personal from '../pages/personal'
 import Classification from '../pages/classification'
 import Favorite from '../pages/favorite'
+import Login from "../pages/Login"
+import Search from "../pages/search"
 
 export default [{
         path: '/',
@@ -31,5 +33,21 @@ export default [{
         name: "Favorite",
         path: '/favorite',
         component: Favorite
+    },
+    {
+        name: "Login",
+        path: '/login',
+        component: Login,
+        meta: {
+            isHide: true
+        }
+    },
+    {
+        name: "Search",
+        path: '/search',
+        component: Search,
+        meta: {
+            isHide: true
+        }
     }
 ]

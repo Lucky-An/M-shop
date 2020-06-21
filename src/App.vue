@@ -1,7 +1,13 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <van-tabbar class="thisTabBar" route active-color="#DD1A21" inactive-color="#666">
+    <van-tabbar
+      v-if="!$route.meta.isHide"
+      class="thisTabBar"
+      route
+      active-color="#DD1A21"
+      inactive-color="#666"
+    >
       <van-tabbar-item replace to="/home">
         <van-icon name="wap-home-o" size="22" />
         <div class="iconText">首页</div>

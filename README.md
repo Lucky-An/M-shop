@@ -363,5 +363,26 @@
       
           在axios文件夹中的`index.js`中引入`Majax`
       
-      18. 
+      18. 在路由中添加meta来控制底部tabbar显示隐藏
+      
+      19. 引入`lodash`做函数节流
+      
+          `npm i lodash --save`
+      
+          ```javascript
+          import throttle from "lodash/throttle";
+          ```
+      
+          ```javascript
+          methods: {
+           changeInput: throttle(function() {
+                let keywordPrefix = this.searchInputData;
+                getSearchAutoComplete(keywordPrefix).then(value => {
+                  this.searchList = value.data.data;
+                });
+              }, 200)
+          }
+          ```
+      
+      20. 
 

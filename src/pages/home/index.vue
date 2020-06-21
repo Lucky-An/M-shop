@@ -3,11 +3,11 @@
     <!-- 头部 -->
     <header>
       <img src="../../static/images/logo.png" alt="网易严选" />
-      <div class="bumInput">
+      <div class="bumInput" @click="toSearch">
         <van-icon name="search" />
         搜索商品共{{allCount}}款好物
       </div>
-      <div class="loginBtn">登陆</div>
+      <div class="loginBtn" @click="toLogin">登录</div>
     </header>
     <!-- 滑屏导航 -->
     <div class="scrollView">
@@ -146,6 +146,14 @@ export default {
       } else {
         this.isRecommend = false;
       }
+    },
+    // 跳转到search界面
+    toSearch() {
+      this.$router.replace("/search");
+    },
+    // 跳转得到Login界面
+    toLogin() {
+      this.$router.replace({ name: "Login" });
     }
   }
 };
@@ -187,6 +195,7 @@ header {
   .loginBtn {
     width: 74px;
     height: 40px;
+    line-height: 40px;
     border: 1px solid #dd1a21; /*px*/
     color: #dd1a21;
     text-align: center;

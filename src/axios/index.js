@@ -29,3 +29,15 @@ export const getFindRecAuto = (data) => {
         }
     )
 }
+// 搜索页推荐数据
+// https://m.you.163.com/xhr/search/init.json
+export const getFindSearch = (data) => {
+    return Majax.get(
+        "/xhr/search/init.json"
+    )
+}
+// 搜索页  关键词搜索事件
+// https://m.you.163.com/xhr/search/searchAutoComplete.json
+export const getSearchAutoComplete = (data) => {
+    return Majax.get(`/xhr/search/searchAutoComplete.json?keywordPrefix=${data}`)
+}

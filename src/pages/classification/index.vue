@@ -2,7 +2,7 @@
   <div>
     <!-- 头部按钮 -->
     <header class="header">
-      <div class="bumInput">
+      <div class="bumInput" @click="toSearch">
         <van-icon name="search" size="22" />
         <span>搜索商品，共{{total}}款好物</span>
       </div>
@@ -52,19 +52,9 @@ export default {
     });
   },
   methods: {
-    // 请求数据
-    // setClassification() {
-    //   let result = {};
-    //   let getInitData = async () => {
-    //     result = await getClassificationData();
-    //     console.log("里面的");
-    //     console.log(result);
-    //   };
-    //   getInitData();
-    //   console.log("外边的");
-    //   console.log(result);
-    //   return result;
-    // }
+    toSearch() {
+      this.$router.replace("/search");
+    }
   }
 };
 </script>

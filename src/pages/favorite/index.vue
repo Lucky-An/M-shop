@@ -1,10 +1,10 @@
 <template>
   <div>
     <header class="header">
-      <van-icon name="wap-home-o" size="26" />
+      <van-icon name="wap-home-o" size="26" @click="toHome" />
       <span>值得买</span>
-      <van-icon name="search" size="26" class="search" />
-      <van-icon name="shopping-cart-o" size="26" />
+      <van-icon name="search" size="26" class="search" @click="toSearch" />
+      <van-icon name="shopping-cart-o" size="26" @click="toShopCart" />
     </header>
     <div class="m-swiperTab-container">
       <div class="m-swiperTab-title">
@@ -160,6 +160,16 @@ export default {
 
       //
       this.page = this.page + 1;
+    },
+    // 跳转到首页
+    toHome() {
+      this.$router.replace({ name: "Home" });
+    },
+    toSearch() {
+      this.$router.replace({ name: "Search" });
+    },
+    toShopCart() {
+      this.$router.replace({ name: "ShopCart" });
     }
   }
 };
