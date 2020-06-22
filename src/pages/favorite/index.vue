@@ -83,6 +83,7 @@ export default {
       let isBottom =
         this.getScrollHeight() + this.getWindowHeight() >=
         this.getDocumentHeight();
+      // console.log(isBottom);
       if (isBottom) {
         this.scorllToBottom();
       }
@@ -137,29 +138,35 @@ export default {
     },
     // 触底事件触发后的逻辑
     scorllToBottom() {
+      // console.log("进来了");
       let obj = { page: this.page, size: 1 };
       getFindRecAuto(obj).then(value => {
+        // console.log(value);
         let newArray = value.data.data.result[0].topics;
         let waterfallList = this.waterfallList;
         this.waterfallList = waterfallList.concat(newArray);
-      });
-      //
-      let finallyList = this.waterfallList;
-      let oddList = [];
-      // 偶数数组
-      let evenList = [];
-      finallyList.forEach((value, index) => {
-        if (index % 2 === 1) {
-          oddList.push(value);
-        } else {
-          evenList.push(value);
-        }
-      });
-      this.oddWaterfallList = oddList;
-      this.evenWaterfallList = evenList;
+        // console.log("-------------------------------");
+        // console.log(this.waterfallList);
+        //
+        let finallyList = this.waterfallList;
+        let oddList = [];
+        // 偶数数组
+        let evenList = [];
+        // console.log(oddList);
+        finallyList.forEach((value, index) => {
+          if (index % 2 === 1) {
+            oddList.push(value);
+          } else {
+            evenList.push(value);
+          }
+        });
+        this.oddWaterfallList = oddList;
+        this.evenWaterfallList = evenList;
 
-      //
-      this.page = this.page + 1;
+        //
+        this.page = this.page + 1;
+        //
+      });
     },
     // 跳转到首页
     toHome() {
